@@ -27,6 +27,9 @@
                <center>
                   <Button mnemonicParsing="false" onAction="#getIncome" text="Enter" BorderPane.alignment="CENTER" />
                </center>
+               <bottom>
+                  <Label fx:id="errorIncomeLabel" text="Please enter total income" textFill="Red" BorderPane.alignment="CENTER" />
+               </bottom>
             </BorderPane>
          </children>
       </HBox>
@@ -39,6 +42,9 @@
                <center>
                   <Button mnemonicParsing="false" onAction="#getBudget" text="Enter" BorderPane.alignment="CENTER" />
                </center>
+               <bottom>
+                  <Label fx:id="errorBudgetLabel" text="Please set monthly budgets" textFill="Red" BorderPane.alignment="CENTER" />
+               </bottom>
             </BorderPane>
          </children>
       </HBox>
@@ -51,6 +57,9 @@
                <center>
                   <Button mnemonicParsing="false" onAction="#getExpenses" text="Enter" BorderPane.alignment="CENTER" />
                </center>
+               <bottom>
+                  <Label fx:id="errorExpensesLabel" text="Please provide expenses" textFill="Red" BorderPane.alignment="CENTER" />
+               </bottom>
             </BorderPane>
          </children>
       </HBox>
