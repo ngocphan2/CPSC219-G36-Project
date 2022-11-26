@@ -78,22 +78,26 @@ public class BudgetAppController {
 		
 		VBox budgetContainer = new VBox();
 		
+		BorderPane expensesBorderPane = new BorderPane();
 		Label budgetTitleLabel = new Label("Monthly Budget");
-		budgetContainer.getChildren().addAll(budgetTitleLabel, errorBudgetLabel);
-		
-				
 		Button doneButton = new Button("Done");
     	doneButton.setOnAction(doneEvent -> calculateBudget(mainScene));
-    	budgetContainer.getChildren().addAll(doneButton);
+
+    	expensesBorderPane.setCenter(budgetTitleLabel);
+    	expensesBorderPane.setRight(doneButton);
+    	budgetContainer.getChildren().addAll(expensesBorderPane, errorBudgetLabel);				
+		
+    	Button addBudgetButton = new Button("Add more");
+		addBudgetButton.setOnAction(doneEvent -> budgetContainer.getChildren().addAll(generateTextField()));
+		budgetContainer.getChildren().add(addBudgetButton);
 		
 		Scene budgetScene = new Scene(budgetContainer);
 		applicationStage.setScene(budgetScene);
 	}
 
 	BorderPane generateTextField() {
-		TextField expenseActivityTextField = new TextField("Enter expense activity");
-		TextField expensesTextField = new TextField("Enter expense amount");
-		ArrayList<TextField> list = new ArrayList<TextField>();
+		TextField expenseActivityTextField = new TextField("Enter activity");
+		TextField expensesTextField = new TextField("Enter amount");
 		BorderPane expensesBorderPane = new BorderPane();
 		
 		expensesBorderPane.setCenter(expenseActivityTextField);
@@ -126,8 +130,7 @@ public class BudgetAppController {
 		expensesContainer.getChildren().addAll(expensesBorderPane1, expensesBorderPane2, errorExpensesLabel);
 		
 		Button addExpenseButton = new Button("Add more");
-		addExpenseButton.setOnAction(doneEvent -> expensesContainer.getChildren().addAll(generateTextField()));
-		
+		addExpenseButton.setOnAction(doneEvent -> expensesContainer.getChildren().addAll(generateTextField()));		
     	expensesContainer.getChildren().add(addExpenseButton);
 
 		TextField expenseActivityTextField = new TextField("Enter expense activity");
