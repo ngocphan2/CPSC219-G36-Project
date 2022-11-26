@@ -4,8 +4,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -41,11 +43,10 @@ public class BudgetAppController {
 		incomeListLabels.add("Employment Income");
 		incomeListLabels.add("Side Income");
 		incomeListLabels.add("Other Income");
-		incomeContainer.getChildren().add(errorIncomeLabel);
 
 		Label incomeTitleLabel = new Label("Monthly Income");
 		ArrayList<TextField> incomeTextFields = new ArrayList<TextField>();
-		incomeContainer.getChildren().addAll(incomeTitleLabel);
+		incomeContainer.getChildren().addAll(incomeTitleLabel, errorIncomeLabel);
 		
 		for (int i = 0; i < incomeListLabels.size(); i++) {
 			HBox rowContainer = new HBox();
@@ -77,8 +78,10 @@ public class BudgetAppController {
 		
 		VBox budgetContainer = new VBox();
 		
-		budgetContainer.getChildren().add(errorBudgetLabel);
+		Label budgetTitleLabel = new Label("Monthly Budget");
+		budgetContainer.getChildren().addAll(budgetTitleLabel, errorBudgetLabel);
 		
+				
 		Button doneButton = new Button("Done");
     	doneButton.setOnAction(doneEvent -> calculateBudget(mainScene));
     	budgetContainer.getChildren().addAll(doneButton);
@@ -87,6 +90,18 @@ public class BudgetAppController {
 		applicationStage.setScene(budgetScene);
 	}
 
+	BorderPane generateTextField() {
+		TextField expenseActivityTextField = new TextField("Enter expense activity");
+		TextField expensesTextField = new TextField("Enter expense amount");
+		ArrayList<TextField> list = new ArrayList<TextField>();
+		BorderPane expensesBorderPane = new BorderPane();
+		
+		expensesBorderPane.setCenter(expenseActivityTextField);
+		expensesBorderPane.setRight(expensesTextField);
+
+		return expensesBorderPane;
+	}
+	
 	public void calculateExpenses(Scene mainScene) {
 		errorExpensesLabel.setText("");
 		applicationStage.setScene(mainScene);
@@ -98,11 +113,31 @@ public class BudgetAppController {
 		
 		VBox expensesContainer = new VBox();
 
-		expensesContainer.getChildren().add(errorExpensesLabel);
-
+		BorderPane expensesBorderPane1 = new BorderPane();
+		BorderPane expensesBorderPane2 = new BorderPane();
+		Label expensesTitleLabel = new Label("Monthly Expenses" + '\n' + "Please select a date");
 		Button doneButton = new Button("Done");
     	doneButton.setOnAction(doneEvent -> calculateExpenses(mainScene));
-    	expensesContainer.getChildren().addAll(doneButton);
+		DatePicker myDate = new DatePicker();
+		
+		expensesBorderPane1.setCenter(expensesTitleLabel);
+		expensesBorderPane1.setRight(doneButton);
+		expensesBorderPane2.setCenter(myDate);
+		expensesContainer.getChildren().addAll(expensesBorderPane1, expensesBorderPane2, errorExpensesLabel);
+		
+		Button addExpenseButton = new Button("Add more");
+		addExpenseButton.setOnAction(doneEvent -> expensesContainer.getChildren().addAll(generateTextField()));
+		
+    	expensesContainer.getChildren().add(addExpenseButton);
+
+		TextField expenseActivityTextField = new TextField("Enter expense activity");
+		TextField expensesTextField = new TextField("Enter expense amount");
+		BorderPane expensesBorderPane3 = new BorderPane();
+		
+		expensesBorderPane3.setCenter(expenseActivityTextField);
+		expensesBorderPane3.setRight(expensesTextField);
+		expensesContainer.getChildren().add(expensesBorderPane3);
+		
 		
 		Scene expensesScene = new Scene(expensesContainer);
 		applicationStage.setScene(expensesScene);
