@@ -25,7 +25,7 @@
          <children>
             <BorderPane prefHeight="200.0" prefWidth="200.0">
                <top>
-	           		 <Label fx:id="monthlyIncomeLabel" text="Total income is: 0" textFill="Green" BorderPane.alignment="CENTER" />
+	           		 <Label fx:id="monthlyIncomeLabel" text="Total income is: $0" textFill="Green" BorderPane.alignment="CENTER" />
                </top>
                <center>
                   <Label text="Monthly Income" BorderPane.alignment="CENTER">
@@ -54,7 +54,7 @@
          <children>
             <BorderPane prefHeight="200.0" prefWidth="200.0">
                <top>
-	           		 <Label fx:id="monthlyBudgetLabel" text="Budget saving plan is: 0" textFill="Green" BorderPane.alignment="CENTER" />
+	           		 <Label fx:id="monthlyBudgetLabel" text="Budget saving plan is: $0" textFill="Green" BorderPane.alignment="CENTER" />
                </top>
                <bottom>
                   <Label fx:id="errorBudgetLabel" text="Please set monthly budgets" textFill="Red" BorderPane.alignment="CENTER" />
@@ -78,7 +78,7 @@
          <children>
             <BorderPane prefHeight="200.0" prefWidth="200.0">
             	<top>
-	           		<Label fx:id="monthlyExpensesLabel" text="Total expenses is: 0" textFill="Green" BorderPane.alignment="CENTER" />
+	           		<Label fx:id="monthlyExpensesLabel" text="Total expenses is: $0" textFill="Green" BorderPane.alignment="CENTER" />
                </top>
                <bottom>
                   <Label fx:id="errorExpensesLabel" text="Please provide expenses" textFill="Red" BorderPane.alignment="CENTER" />

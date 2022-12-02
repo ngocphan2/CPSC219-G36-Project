@@ -18,8 +18,13 @@ import java.util.ArrayList;
 
 public class BudgetAppController {
 	public Stage applicationStage;
+	private TextField expensesTextField;
 	private double monthlyIncome = 0.0;
+	private double monthlyBudget = 0.0;
+	private double monthlyExpenses = 0.0;
 	
+
+
 	@FXML
 	private Label errorIncomeLabel;
 	
@@ -56,7 +61,7 @@ public class BudgetAppController {
 			validChecker = "invalid";
 		}
 		
-		monthlyIncomeLabel.setText("Total income is: " + monthlyIncome);
+		monthlyIncomeLabel.setText("Total income is: $" + monthlyIncome);
 		
 		if (validChecker.equals("valid"))	applicationStage.setScene(mainScene);		
 	}
@@ -94,9 +99,27 @@ public class BudgetAppController {
 		applicationStage.setScene(incomeScene);
 	}
 	
-	public void calculateBudget(Scene mainScene) {
+	public void calculateBudget(Scene mainScene, ArrayList<TextField> budgetTextFields) {
+		monthlyBudget = 0.0;
 		errorBudgetLabel.setText("");
-		applicationStage.setScene(mainScene);
+		String validChecker = "valid";
+		
+		try {
+			for(TextField budgetTextField : budgetTextFields) {
+				Budget budgetBudget = new Budget(budgetTextField.getText());
+				monthlyBudget += budgetBudget.getValue();
+			}			
+		}
+		catch (InvalidBudgetException ibe) {
+			errorBudgetLabel.setText(ibe.getMessage()); 
+			Budget budgetBudget = new Budget(0);
+			monthlyBudget += budgetBudget.getValue();
+			validChecker = "invalid";
+		}
+		
+		monthlyBudgetLabel.setText("Total budget is: $" + monthlyBudget);
+		
+		if (validChecker.equals("valid"))	applicationStage.setScene(mainScene);		
 	}
 	
 	@FXML
@@ -104,17 +127,19 @@ public class BudgetAppController {
 		Scene mainScene = applicationStage.getScene();
 		VBox budgetContainer = new VBox();
 
+		ArrayList<TextField> budgetTextFields = new ArrayList<TextField>();
 		BorderPane expensesBorderPane = new BorderPane();
 		Label budgetTitleLabel = new Label("Monthly Budget");
 		Button doneButton = new Button("Done");
-    	doneButton.setOnAction(doneEvent -> calculateBudget(mainScene));
+    	doneButton.setOnAction(doneEvent -> calculateBudget(mainScene, budgetTextFields));
 
     	expensesBorderPane.setCenter(budgetTitleLabel);
     	expensesBorderPane.setRight(doneButton);
     	budgetContainer.getChildren().addAll(expensesBorderPane, errorBudgetLabel);				
 
     	Button addBudgetButton = new Button("Add more");
-		addBudgetButton.setOnAction(doneEvent -> budgetContainer.getChildren().addAll(generateTextField()));
+		addBudgetButton.setOnAction(doneEvent -> {budgetContainer.getChildren().addAll(generateTextField());
+		budgetTextFields.add(expensesTextField);});
 		budgetContainer.getChildren().add(addBudgetButton);
 
 		Scene budgetScene = new Scene(budgetContainer);
@@ -144,7 +169,7 @@ public class BudgetAppController {
     	activityList.add("Shopping");
     	activityList.add("Household Necessities");
     	activityList.add("Other");
-		TextField expensesTextField = new TextField("Enter amount");
+		expensesTextField = new TextField();
 		BorderPane expensesBorderPane = new BorderPane();
 
 		expensesBorderPane.setLeft(activityChoiceBox);
@@ -157,7 +182,10 @@ public class BudgetAppController {
 	
 	public void calculateExpenses(Scene mainScene) {
 		errorExpensesLabel.setText("");
-		applicationStage.setScene(mainScene);
+		String validChecker = "valid";
+		
+		
+		if (validChecker.equals("valid"))	applicationStage.setScene(mainScene);
 	}
 	
 	@FXML
@@ -188,29 +216,28 @@ public class BudgetAppController {
 				
     	expensesContainer.getChildren().add(myDate);
     	
-    	ChoiceBox<String> expenseActivityChoiceBox = new ChoiceBox<String>();
-    	expenseActivityChoiceBox.setValue("Select Activity");
-    	ObservableList<String> activityList = expenseActivityChoiceBox.getItems();
-    	activityList.add("Rent/Mortgage");
-    	activityList.add("Car Payment");
-    	activityList.add("Car Insurance");
-    	activityList.add("Health Insurance");
-    	activityList.add("Other Insurance");
-    	activityList.add("Food");
-    	activityList.add("Utility");
-    	activityList.add("Phone Bill");
-    	activityList.add("Miscenllaneous");
-    	activityList.add("Shopping");
-    	activityList.add("Household Necessities");
-    	activityList.add("Other");
-    	
-		TextField expensesTextField = new TextField("Enter expense amount");
-		BorderPane expensesBorderPane3 = new BorderPane();
-		
-		expensesBorderPane3.setLeft(expenseActivityChoiceBox);
-		expensesBorderPane3.setRight(expensesTextField);
-		expensesContainer.getChildren().addAll(expensesBorderPane3);
-		
+//    	ChoiceBox<String> expenseActivityChoiceBox = new ChoiceBox<String>();
+//    	expenseActivityChoiceBox.setValue("Select Activity");
+//    	ObservableList<String> activityList = expenseActivityChoiceBox.getItems();
+//    	activityList.add("Rent/Mortgage");
+//    	activityList.add("Car Payment");
+//    	activityList.add("Car Insurance");
+//    	activityList.add("Health Insurance");
+//    	activityList.add("Other Insurance");
+//    	activityList.add("Food");
+//    	activityList.add("Utility");
+//    	activityList.add("Phone Bill");
+//    	activityList.add("Miscenllaneous");
+//    	activityList.add("Shopping");
+//    	activityList.add("Household Necessities");
+//    	activityList.add("Other");
+//    	
+//		TextField expensesTextField = new TextField("Enter expense amount");
+//		BorderPane expensesBorderPane3 = new BorderPane();
+//		
+//		expensesBorderPane3.setLeft(expenseActivityChoiceBox);
+//		expensesBorderPane3.setRight(expensesTextField);
+//		expensesContainer.getChildren().addAll(expensesBorderPane3);		
 		
 		Scene expensesScene = new Scene(expensesContainer);
 		applicationStage.setScene(expensesScene);
