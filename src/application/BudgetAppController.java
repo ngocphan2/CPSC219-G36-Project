@@ -23,7 +23,7 @@ public class BudgetAppController {
 	private double monthlyIncome = 0.0;
 	private double monthlyBudget = 0.0;
 	private double monthlyExpenses = 0.0;
-	
+
 
 
 	@FXML
@@ -244,20 +244,34 @@ public class BudgetAppController {
 	}
 	
 	public void checkInsight(Scene mainScene) {
+		
+		
 		applicationStage.setScene(mainScene);
 	}
 	
 	@FXML
 	void insightChecker(ActionEvent event) {
 		Scene mainScene = applicationStage.getScene();
-		
+		double Income = monthlyIncome - monthlyExpenses;
+
 		VBox insightContainer = new VBox();
 		
 		Label insightTitleLabel = new Label("Overview");
-		Label insightIncomeLabel = new Label("Total income: " + (monthlyIncome - monthlyExpenses)
+		Label insightIncomeLabel = new Label("Total income: $" + Income
 				+ "\n(Revenue - Expenses)");
+		Label insightBudgetLabel = new Label("Target budget: $" + monthlyBudget);
 		
-		insightContainer.getChildren().addAll(insightTitleLabel, insightIncomeLabel);
+		
+		Label insightIncomeResultLabel = new Label();
+		if (Income > 0 ) insightIncomeResultLabel.setText("Saving is at a surplus of: $" + Income);
+		else if (Income < 0 ) insightIncomeResultLabel.setText("Saving is at a deficit of: $" + Income);
+		else if (Income == 0 ) insightIncomeResultLabel.setText("Saving is at $0");
+		
+		Label insightSavingResultLabel = new Label();
+		if (monthlyBudget >= monthlyExpenses ) insightSavingResultLabel.setText("Budget target met");
+		else if (monthlyBudget < monthlyExpenses ) insightSavingResultLabel.setText("Failed to meet Budget target");
+		
+		insightContainer.getChildren().addAll(insightTitleLabel, insightIncomeLabel, insightBudgetLabel, insightIncomeResultLabel, insightSavingResultLabel);
 		
 		Button doneButton = new Button("Redo");
     	doneButton.setOnAction(doneEvent -> checkInsight(mainScene));
