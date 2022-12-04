@@ -1,8 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/18" fx:controller="application.BudgetAppController">
-	<!-- TODO Add Nodes -->
+<VBox xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.BudgetAppController">
+   <children>
+      <HBox prefHeight="30.0" prefWidth="200.0">
+         <children>
+            <BorderPane prefHeight="200.0" prefWidth="200.0">
+               <center>
+                  <Label text="Budget Application" BorderPane.alignment="TOP_CENTER" />
+               </center>
+            </BorderPane>
+         </children>
+      </HBox>
+      <HBox prefHeight="50.0" prefWidth="200.0">
+         <children>
+            <BorderPane prefHeight="200.0" prefWidth="200.0">
+               <top>
+                  <Label text="Monthly Income" BorderPane.alignment="CENTER" />
+               </top>
+               <center>
+                  <Button mnemonicParsing="false" onAction="#getIncome" text="Enter" BorderPane.alignment="CENTER" />
+               </center>
+               <bottom>
+                  <Label fx:id="errorIncomeLabel" text="Please enter total income" textFill="Red" BorderPane.alignment="CENTER" />
+               </bottom>
+            </BorderPane>
+         </children>
+      </HBox>
+      <HBox prefHeight="50.0" prefWidth="200.0">
+         <children>
+            <BorderPane prefHeight="200.0" prefWidth="200.0">
+               <top>
+                  <Label text="Monthly Budget" BorderPane.alignment="CENTER" />
+               </top>
+               <center>
+                  <Button mnemonicParsing="false" onAction="#getBudget" text="Enter" BorderPane.alignment="CENTER" />
+               </center>
+               <bottom>
+                  <Label fx:id="errorBudgetLabel" text="Please set monthly budgets" textFill="Red" BorderPane.alignment="CENTER" />
+               </bottom>
+            </BorderPane>
+         </children>
+      </HBox>
+      <HBox prefHeight="50.0" prefWidth="200.0">
+         <children>
+            <BorderPane prefHeight="200.0" prefWidth="200.0">
+               <top>
+                  <Label text="Monthly Expenses" BorderPane.alignment="CENTER" />
+               </top>
+               <center>
+                  <Button mnemonicParsing="false" onAction="#getExpenses" text="Enter" BorderPane.alignment="CENTER" />
+               </center>
+               <bottom>
+                  <Label fx:id="errorExpensesLabel" text="Please provide expenses" textFill="Red" BorderPane.alignment="CENTER" />
+               </bottom>
+            </BorderPane>
+         </children>
+      </HBox>
+      <Button mnemonicParsing="false" onAction="#insightChecker" text="Insight">
+      	<HBox.margin>
+        	<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+       </HBox.margin>
+	  </Button>
+   </children>
 </VBox>
