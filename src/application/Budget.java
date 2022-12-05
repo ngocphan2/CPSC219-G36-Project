@@ -24,7 +24,7 @@ public abstract class Budget {
 					counter++;
 				}
 			} else {
-				throw new InvalidBudgetException("Do not use " + c + " in a budget value. Make sure to enter a number.");
+				throw new InvalidBudgetException("Do not use '" + c + "' in a budget value. Make sure to enter a number.");
 			}
 			
 			if (counter > 1) {

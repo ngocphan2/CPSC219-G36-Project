@@ -54,16 +54,16 @@
          <children>
             <BorderPane prefHeight="200.0" prefWidth="200.0">
                <top>
-	           		 <Label fx:id="monthlyBudgetLabel" text="Budget saving plan is: $0" textFill="Green" BorderPane.alignment="CENTER" />
+	           		 <Label fx:id="monthlySavingsLabel" text="Budget saving plan is: $0" textFill="Green" BorderPane.alignment="CENTER" />
                </top>
                <bottom>
-                  <Label fx:id="errorBudgetLabel" text="Please set monthly budgets" textFill="Red" BorderPane.alignment="CENTER" />
+                  <Label fx:id="errorSavingsLabel" text="Please set monthly Savings" textFill="Red" BorderPane.alignment="CENTER" />
                </bottom>
                <right>
-                  <Button mnemonicParsing="false" onAction="#getBudget" text="Enter" BorderPane.alignment="CENTER" />
+                  <Button mnemonicParsing="false" onAction="#getSavings" text="Enter" BorderPane.alignment="CENTER" />
                </right>
                <center>
-                  <Label text="Monthly Budget" BorderPane.alignment="CENTER">
+                  <Label text="Monthly Savings" BorderPane.alignment="CENTER">
                      <BorderPane.margin>
                         <Insets left="50.0" />
                      </BorderPane.margin></Label>
