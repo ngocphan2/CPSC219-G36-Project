@@ -1,13 +1,13 @@
 package application;
 
-public class Budget {
+public abstract class Budget {
 	private double value;
 	
-	Budget(double value) {
+	public Budget(double value) {
 		this.value = value;
 	}
 	
-	Budget(String value) throws InvalidBudgetException {	
+	public Budget(String value) throws InvalidBudgetException {	
 		boolean validGrade = false;
 		int counter = 0;
 		
@@ -37,7 +37,7 @@ public class Budget {
 		}
 	}
 	
-	double getValue() {
+	public double getValue() {
 		return value;
 	}
 }
