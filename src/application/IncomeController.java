@@ -52,7 +52,6 @@ public class IncomeController {
 	}
 	
 	public void goToController(ActionEvent event) {
-		
 		getAccumulation(incomeTextFields);
 		
 		if (validChecker != null)

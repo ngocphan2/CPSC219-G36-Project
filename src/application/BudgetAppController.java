@@ -24,7 +24,10 @@ import java.util.ArrayList;
 public class BudgetAppController {
 	private Stage primaryStage;
 	private Scene myScene;
-	private IncomeController nextSceneController;
+	
+	private IncomeController incomeSceneController;
+	private SavingsController savingSceneController;
+	private ExpensesController expensesSceneController;
 	
 	private TextField expensesTextField;
 	private double monthlyIncome = 0.0;
@@ -63,117 +66,87 @@ public class BudgetAppController {
 	public void setMonthlyIncomeLabels(String incomeStr) {
 		monthlyIncomeLabel.setText(incomeStr);
 	}
-	public void setMonthlySavingsLabels(String SavingsStr, String errorStr) {
+	public void setMonthlySavingsLabels(String SavingsStr) {
 		monthlySavingsLabel.setText(SavingsStr);
-		errorSavingsLabel.setText(errorStr);
 	}
-	public void setMonthlyExpensesLabels(String expensesStr, String errorStr) {
+	public void setMonthlyExpensesLabels(String expensesStr) {
 		monthlyExpensesLabel.setText(expensesStr);
-		errorExpensesLabel.setText(errorStr);
 	}
+	
 	public void setErrorIncomeLabels(String str) {
 		errorIncomeLabel.setText(str);
+	}
+	public void setErrorSavingsLabels(String str) {
+		errorSavingsLabel.setText(str);
+	}
+	public void setErrorExpensesLabels(String str) {
+		errorExpensesLabel.setText(str);
 	}
 	
 	@FXML
 	public void getIncome(ActionEvent event) {
-		if(nextSceneController == null) {
+		if(incomeSceneController == null) {
 			try {
 				FXMLLoader loader = new FXMLLoader();
 				Parent root = loader.load(new FileInputStream("src/application/IncomeControllerView.fxml"));
 				
-				nextSceneController = loader.getController();
-				nextSceneController.setPrimaryStage(primaryStage);
-				nextSceneController.setMyScene(new Scene(root));
-				nextSceneController.setNextController(this);
-				nextSceneController.setErrorLabel("");
+				incomeSceneController = loader.getController();
+				incomeSceneController.setPrimaryStage(primaryStage);
+				incomeSceneController.setMyScene(new Scene(root));
+				incomeSceneController.setNextController(this);
+				incomeSceneController.setErrorLabel("");
 			}
 			catch(IOException e) {
 				e.printStackTrace();
 			}
 		}
-		nextSceneController.takeFocus();
+		incomeSceneController.takeFocus();
 	}
 	
 	@FXML
 	public void getSavings(ActionEvent event) {
-		
+		if(savingSceneController == null) {
+			try {
+				FXMLLoader loader = new FXMLLoader();
+				Parent root = loader.load(new FileInputStream("src/application/SavingsControllerView.fxml"));
+				
+				savingSceneController = loader.getController();
+				savingSceneController.setPrimaryStage(primaryStage);
+				savingSceneController.setMyScene(new Scene(root));
+				savingSceneController.setNextController(this);
+				savingSceneController.setErrorLabel("");
+			}
+			catch(IOException e) {
+				e.printStackTrace();
+			}
+		}
+		savingSceneController.takeFocus();
 	}
 	
 	@FXML
 	public void getExpenses(ActionEvent event) {
-		
+		if(expensesSceneController == null) {
+			try {
+				FXMLLoader loader = new FXMLLoader();
+				Parent root = loader.load(new FileInputStream("src/application/ExpensesControllerView.fxml"));
+				
+				expensesSceneController = loader.getController();
+				expensesSceneController.setPrimaryStage(primaryStage);
+				expensesSceneController.setMyScene(new Scene(root));
+				expensesSceneController.setNextController(this);
+				expensesSceneController.setErrorLabel("");
+			}
+			catch(IOException e) {
+				e.printStackTrace();
+			}
+		}
+		expensesSceneController.takeFocus();
 	}
 	
 	@FXML
 	public void insightChecker(ActionEvent event) {
 		
 	}
-//	public void getAccumulation(Scene mainScene, ArrayList<TextField> incomeTextFields, 
-//			Label monthlyAccumulationLabel) {
-//		if(monthlyAccumulationLabel == monthlyIncomeLabel) {
-//			monthlyIncome = 0.0;
-//			errorIncomeLabel.setText("");
-//			String validChecker = "valid";
-//		}
-//	}
-//	
-//	public void calculateIncome(Scene mainScene, ArrayList<TextField> incomeTextFields) {
-//		monthlyIncome = 0.0;
-//		errorIncomeLabel.setText("");
-//		String validChecker = "valid";
-//		
-////		try {
-////			for(TextField incomeTextField : incomeTextFields) {
-////				Budget incomeBudget = new Budget(incomeTextField.getText());
-////				monthlyIncome += incomeBudget.getValue();
-////			}			
-////		}
-////		catch (InvalidBudgetException ibe) {
-////			errorIncomeLabel.setText(ibe.getMessage()); 
-////			Budget incomeBudget = new Budget(0);
-////			monthlyIncome += incomeBudget.getValue();
-////			validChecker = "invalid";
-////		}
-//		
-//		monthlyIncomeLabel.setText("Total income is: $" + monthlyIncome);
-//		
-//		if (validChecker.equals("valid"))	applicationStage.setScene(mainScene);		
-//	}
-//	
-//	@FXML
-//	void getIncome(ActionEvent event) {
-//		Scene mainScene = applicationStage.getScene();
-//		
-//		ArrayList<String> incomeListLabels = new ArrayList<String>();
-//		VBox incomeContainer = new VBox();
-//		
-//		incomeListLabels.add("Employment Income");
-//		incomeListLabels.add("Side Income");
-//		incomeListLabels.add("Other Income");
-//		
-//		Label incomeTitleLabel = new Label("Monthly Income");
-//		ArrayList<TextField> incomeTextFields = new ArrayList<TextField>();
-//		incomeContainer.getChildren().addAll(incomeTitleLabel, errorIncomeLabel);
-//		
-//		for (int i = 0; i < incomeListLabels.size(); i++) {
-//			HBox rowContainer = new HBox();
-//			Label incomeLabel = new Label(incomeListLabels.get(i));
-//			TextField incomeTextField = new TextField();
-//			incomeTextFields.add(incomeTextField);
-//			
-//			rowContainer.getChildren().addAll(incomeLabel, incomeTextField);			
-//			incomeContainer.getChildren().addAll(rowContainer);
-//		}
-//		
-//		Button doneButton = new Button("Done");
-//    	doneButton.setOnAction(doneEvent -> calculateIncome(mainScene, incomeTextFields));
-//    	incomeContainer.getChildren().addAll(doneButton);
-//		
-//		Scene incomeScene = new Scene(incomeContainer);
-//		applicationStage.setScene(incomeScene);
-//	}
-//	
 //	public void calculateSavings(Scene mainScene, ArrayList<TextField> savingsTextFields) {
 //		monthlySavings = 0.0;
 //		errorSavingsLabel.setText("");
