@@ -15,10 +15,13 @@ public class Main extends Application {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			VBox root = loader.load(new FileInputStream("src/application/BudgetAppView.fxml"));
-			BudgetAppController controller = (BudgetAppController)loader.getController();
-			controller.applicationStage = primaryStage;
 			
 			Scene scene = new Scene(root,200,270);
+
+			BudgetAppController controller = (BudgetAppController)loader.getController();
+			controller.setPrimaryStage(primaryStage);
+			controller.setMyScene(scene);
+			
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Budget Application");
 			primaryStage.show();
