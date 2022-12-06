@@ -114,7 +114,7 @@ public class BudgetAppController {
 				savingSceneController.setPrimaryStage(primaryStage);
 				savingSceneController.setMyScene(new Scene(root));
 				savingSceneController.setNextController(this);
-				savingSceneController.setErrorLabel("");
+				savingSceneController.setErrorLabel("Please have at least 1 entry");
 			}
 			catch(IOException e) {
 				e.printStackTrace();
@@ -147,53 +147,6 @@ public class BudgetAppController {
 	public void insightChecker(ActionEvent event) {
 		
 	}
-//	public void calculateSavings(Scene mainScene, ArrayList<TextField> savingsTextFields) {
-//		monthlySavings = 0.0;
-//		errorSavingsLabel.setText("");
-//		String validChecker = "valid";
-//		
-////		try {
-////			for(TextField savingsTextField : savingsTextFields) {
-////				Budget savingsBudget = new Budget(savingsTextField.getText());
-////				monthlySavings+= savingsBudget.getValue();
-////			}			
-////		}
-////		catch (InvalidBudgetException ibe) {
-////			errorSavingsLabel.setText(ibe.getMessage()); 
-////			Budget savingsBudget = new Budget(0);
-////			monthlySavings += savingsBudget.getValue();
-////			validChecker = "invalid";
-////		}
-//		
-//		monthlySavingsLabel.setText("Total budget is: $" + monthlySavings);
-//		
-//		if (validChecker.equals("valid"))	applicationStage.setScene(mainScene);		
-//	}
-//	
-//	@FXML
-//	void getSavings(ActionEvent event) {
-//		Scene mainScene = applicationStage.getScene();
-//		VBox savingsContainer = new VBox();
-//
-//		ArrayList<TextField> savingsTextFields = new ArrayList<TextField>();
-//		BorderPane savingsBorderPane = new BorderPane();
-//		Label savingsTitleLabel = new Label("Monthly Budget");
-//		Button doneButton = new Button("Done");
-//    	doneButton.setOnAction(doneEvent -> calculateSavings(mainScene, savingsTextFields));
-//
-//    	savingsBorderPane.setCenter(savingsTitleLabel);
-//    	savingsBorderPane.setRight(doneButton);
-//    	savingsContainer.getChildren().addAll(savingsBorderPane, errorSavingsLabel);				
-//
-//    	Button addBudgetButton = new Button("Add more");
-//		addBudgetButton.setOnAction(doneEvent -> {savingsContainer.getChildren().addAll(generateTextField());
-//		savingsTextFields.add(expensesTextField);});
-//		savingsContainer.getChildren().add(addBudgetButton);
-//
-//		Scene budgetScene = new Scene(savingsContainer);
-//		applicationStage.setScene(budgetScene);
-//	}
-//	
 //	BorderPane generateDate() {
 //		DatePicker addDate = new DatePicker();
 //		BorderPane newDate = new BorderPane();
