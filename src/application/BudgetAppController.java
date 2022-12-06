@@ -28,6 +28,7 @@ public class BudgetAppController {
 	private IncomeController incomeSceneController;
 	private SavingsController savingSceneController;
 	private ExpensesController expensesSceneController;
+	private InsightController insightSceneController;
 	
 	private TextField expensesTextField;
 	private double monthlyIncome = 0.0;
@@ -134,7 +135,7 @@ public class BudgetAppController {
 				expensesSceneController.setPrimaryStage(primaryStage);
 				expensesSceneController.setMyScene(new Scene(root));
 				expensesSceneController.setNextController(this);
-				expensesSceneController.setErrorLabel("");
+				expensesSceneController.setErrorLabel("Please have at least 1 entry");
 			}
 			catch(IOException e) {
 				e.printStackTrace();
@@ -145,104 +146,22 @@ public class BudgetAppController {
 	
 	@FXML
 	public void insightChecker(ActionEvent event) {
-		
+		if(insightSceneController == null) {
+			try {
+				FXMLLoader loader = new FXMLLoader();
+				Parent root = loader.load(new FileInputStream("src/application/InsightControllerView.fxml"));
+				
+				insightSceneController = loader.getController();
+				insightSceneController.setPrimaryStage(primaryStage);
+				insightSceneController.setMyScene(new Scene(root));
+				insightSceneController.setNextController(this);
+			}
+			catch(IOException e) {
+				e.printStackTrace();
+			}
+		}
+		insightSceneController.takeFocus();
 	}
-//	BorderPane generateDate() {
-//		DatePicker addDate = new DatePicker();
-//		BorderPane newDate = new BorderPane();
-//		addDate.getEditor().setDisable(true);
-//		newDate.setLeft(addDate);
-//		return newDate;
-//	}
-//
-//	BorderPane generateTextField() {
-//		ChoiceBox<String> activityChoiceBox = new ChoiceBox<String>();
-//    	activityChoiceBox.setValue("Select Activity");
-//    	ObservableList<String> activityList = activityChoiceBox.getItems();
-//    	activityList.add("Rent/Mortgage");
-//    	activityList.add("Car Payment");
-//    	activityList.add("Car Insurance");
-//    	activityList.add("Health Insurance");
-//    	activityList.add("Other Insurance");
-//    	activityList.add("Food");
-//    	activityList.add("Utility");
-//    	activityList.add("Phone Bill");
-//    	activityList.add("Miscenllaneous");
-//    	activityList.add("Shopping");
-//    	activityList.add("Household Necessities");
-//    	activityList.add("Other");
-//		expensesTextField = new TextField();
-//		BorderPane expensesBorderPane = new BorderPane();
-//
-//		expensesBorderPane.setLeft(activityChoiceBox);
-//		expensesBorderPane.setRight(expensesTextField);
-//		
-//		return expensesBorderPane;
-//	}
-//	
-//	
-//	
-//	public void calculateExpenses(Scene mainScene, ArrayList<TextField> expensesTextFields) {
-//		monthlyExpenses = 0.0;
-//		errorExpensesLabel.setText("");
-//		String validChecker = "valid";
-//		
-////		try {
-////			for(TextField expensesTextField : expensesTextFields) {
-////				Budget expensesBudget = new Budget(expensesTextField.getText());
-////				monthlyExpenses += expensesBudget.getValue();
-////			}			
-////		}
-////		catch (InvalidBudgetException ibe) {
-////			errorExpensesLabel.setText(ibe.getMessage()); 
-////			Budget expensesBudget = new Budget(0);
-////			monthlyExpenses += expensesBudget.getValue();
-////			validChecker = "invalid";
-////		}
-//		
-//		monthlyExpensesLabel.setText("Total expenses is: $" + monthlyExpenses);
-//		
-//		if (validChecker.equals("valid"))	applicationStage.setScene(mainScene);
-//	}
-//	
-//	@FXML
-//	void getExpenses(ActionEvent expensesEvent) {
-//		Scene mainScene = applicationStage.getScene();
-//		
-//		ScrollPane sp = new ScrollPane();
-//		VBox expensesContainer = new VBox();
-//		VBox tfContainer = new VBox();
-//		
-//		ArrayList<TextField> expensesTextFields = new ArrayList<TextField>();
-//		BorderPane expensesBorderPane1 = new BorderPane();
-//		BorderPane expensesBorderPane2 = new BorderPane();
-//		Label expensesTitleLabel = new Label("Monthly Expenses");
-//		Button doneButton = new Button("Done");
-//    	doneButton.setOnAction(doneEvent -> calculateExpenses(mainScene, expensesTextFields));
-//		DatePicker myDate = new DatePicker();
-//		myDate.getEditor().setDisable(true);
-//		
-//		sp.setContent(tfContainer);
-//		sp.setPannable(true);
-//		Button addExpenseButton = new Button("Add More Activities");
-//		addExpenseButton.setOnAction(doneEvent -> {tfContainer.getChildren().add(generateTextField());
-//		expensesTextFields.add(expensesTextField);});
-//		
-//		
-//		Button addDateButton = new Button ("Select Another Date");
-//		addDateButton.setOnAction(doneEvent -> tfContainer.getChildren().add(generateDate()));
-//		
-//		expensesBorderPane1.setCenter(expensesTitleLabel);
-//		expensesBorderPane1.setRight(doneButton);
-//		expensesBorderPane2.setLeft(addExpenseButton);
-//		expensesBorderPane2.setCenter(addDateButton );
-//		expensesContainer.getChildren().addAll(expensesBorderPane1, expensesBorderPane2, 
-//				errorExpensesLabel, myDate, sp);
-//				    	
-//		Scene expensesScene = new Scene(expensesContainer);
-//		applicationStage.setScene(expensesScene);
-//	}
-//	
 //	public void checkInsight(Scene mainScene) {
 //		
 //		
