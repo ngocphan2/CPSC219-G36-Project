@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javafx.collections.ObservableList;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 
@@ -42,5 +43,13 @@ public class Accumulation extends Budget{
 		aBorderPane.setLeft(activityChoiceBox);
 		aBorderPane.setRight(aTextField);		
 		return aBorderPane;
+	}
+	
+	public static BorderPane generateDate() {
+		DatePicker addDate = new DatePicker();
+		BorderPane newDate = new BorderPane();
+		addDate.getEditor().setDisable(true);
+		newDate.setLeft(addDate);
+		return newDate;
 	}
 }
