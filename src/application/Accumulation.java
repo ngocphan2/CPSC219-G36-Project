@@ -9,7 +9,16 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 
 public class Accumulation extends Budget{
-
+	private double rent;
+	private double carPayment;
+	private double carInsurance;
+	private double healthInsurance;
+	private double otherInsurance;
+	private double food;
+	private double utility;
+	private double phonePlan;
+	private double other;
+		
 	public Accumulation(double value) {
 		super(value);
 	}
@@ -31,9 +40,6 @@ public class Accumulation extends Budget{
     	activityList.add("Food");
     	activityList.add("Utility");
     	activityList.add("Phone Bill");
-    	activityList.add("Miscenllaneous");
-    	activityList.add("Shopping");
-    	activityList.add("Household Necessities");
     	activityList.add("Other");
     	
     	TextField aTextField = new TextField();
@@ -45,6 +51,45 @@ public class Accumulation extends Budget{
 		return aBorderPane;
 	}
 	
+	public void addChoiceBox(ChoiceBox<String> activityChoiceBox, Accumulation myAccumulation,
+			ArrayList<Double> activityList) {		
+		if (activityChoiceBox.getValue() == "Rent/Mortgage") {
+			rent += myAccumulation.getValue();
+		}
+		else if (activityChoiceBox.getValue() == "Car Payment") {
+			carPayment += myAccumulation.getValue();
+		}
+		else if (activityChoiceBox.getValue() == "Car Insurance") {
+			carInsurance += myAccumulation.getValue();
+		}
+		else if (activityChoiceBox.getValue() == "Health Insurance") {
+			healthInsurance += myAccumulation.getValue();
+		}
+		else if (activityChoiceBox.getValue() == "Other Insurance") {
+			otherInsurance += myAccumulation.getValue();
+		}
+		else if (activityChoiceBox.getValue() == "Food") {
+			food += myAccumulation.getValue();
+		}
+		else if (activityChoiceBox.getValue() == "Utility") {
+			utility += myAccumulation.getValue();
+		}
+		else if (activityChoiceBox.getValue() == "Phone Plan") {
+			phonePlan += myAccumulation.getValue();
+		} else {
+			other += myAccumulation.getValue();
+		}		
+		activityList.add(rent);
+		activityList.add(carPayment);
+		activityList.add(carInsurance);
+		activityList.add(healthInsurance);
+		activityList.add(otherInsurance);
+		activityList.add(food);
+		activityList.add(utility);
+		activityList.add(phonePlan);
+		activityList.add(other);
+	}
+		
 	public static BorderPane generateDate() {
 		DatePicker addDate = new DatePicker();
 		BorderPane newDate = new BorderPane();

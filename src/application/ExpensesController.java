@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
@@ -18,7 +19,8 @@ public class ExpensesController {
 	
 	private double monthlyExpenses;
 	private ArrayList<TextField> expensesTextFields = new ArrayList<TextField>();
-
+	private ChoiceBox<String> activityChoiceBox = new ChoiceBox<String>();
+	private ArrayList<Double> activityList = new ArrayList<Double>();
 
 	@FXML
 	private Label errorLabel;
@@ -45,14 +47,24 @@ public class ExpensesController {
 		primaryStage.setScene(myScene);
 	}
 	
+	public void getArrayTextField(ArrayList<TextField> arrayTextField) {
+		expensesTextFields = arrayTextField;		
+	}
+		
 	public void goToController(ActionEvent event) {
 		getAccumulation(expensesTextFields);
 		
 		if (validChecker != null)
 			if (validChecker.equals("valid")) {
 				nextController.takeFocus();
-				nextController.setMonthlyExpensesLabels("Monthly Savings is: $" + monthlyExpenses);
-			}	}
+				nextController.setMonthlyExpensesLabels("Monthly Savings is: $" + monthlyExpenses);	
+				nextController.setExpensesValue(monthlyExpenses);
+			}
+		}
+	
+	public double getTotalValue(double value) {
+		return monthlyExpenses;
+	}
 	
 	public void addTextField(ActionEvent event) {
 		expensesVBox.getChildren().addAll(Accumulation.generateTextField(expensesTextFields));
@@ -66,15 +78,16 @@ public class ExpensesController {
 		monthlyExpenses = 0.0;
 		try {
 			for(TextField expensesTextField : expensesTextFields) {
-				Accumulation expensesBudget = new Accumulation(expensesTextField.getText());
-				monthlyExpenses += expensesBudget.getValue();
+				Accumulation expensesAccumulation = new Accumulation(expensesTextField.getText());
+				monthlyExpenses += expensesAccumulation.getValue();
+				expensesAccumulation.addChoiceBox(activityChoiceBox, expensesAccumulation, activityList);
 				validChecker = "valid";
 			}			
 		}
 		catch (InvalidBudgetException ibe) {
 			errorLabel.setText(ibe.getMessage());
-			Accumulation expensesBudget = new Accumulation(0);
-			monthlyExpenses += expensesBudget.getValue();
+			Accumulation expensesAccumulation = new Accumulation(0);
+			monthlyExpenses += expensesAccumulation.getValue();
 			validChecker = "invalid";
 		}
 	}

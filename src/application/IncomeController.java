@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -58,6 +59,7 @@ public class IncomeController {
 		if (validChecker.equals("valid")) {
 			nextController.takeFocus();
 			nextController.setMonthlyIncomeLabels("Monthly Income is: $" + monthlyIncome);
+			nextController.setIncomeValue(monthlyIncome);
 		}
 	}
 	
@@ -76,6 +78,9 @@ public class IncomeController {
 			monthlyIncome += incomeBudget.getValue();
 			validChecker = "invalid";
 		}
+	}
+	public double getTotalValue(double value) {
+		return monthlyIncome;
 	}
 	
 }

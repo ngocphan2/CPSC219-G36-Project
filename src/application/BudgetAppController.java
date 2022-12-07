@@ -1,20 +1,12 @@
 package application;
 
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.FileInputStream;
@@ -30,11 +22,10 @@ public class BudgetAppController {
 	private ExpensesController expensesSceneController;
 	private InsightController insightSceneController;
 	
-	private TextField expensesTextField;
-	private double monthlyIncome = 0.0;
-	private double monthlySavings = 0.0;
-	private double monthlyExpenses = 0.0;
-
+	private double totalExpenses;
+	private double totalSavings;
+	private double totalIncome;
+	
 	@FXML
 	private Label errorIncomeLabel;
 	
@@ -82,6 +73,16 @@ public class BudgetAppController {
 	}
 	public void setErrorExpensesLabels(String str) {
 		errorExpensesLabel.setText(str);
+	}
+	
+	public void setExpensesValue(Double expensesValue) {
+		totalExpenses = expensesValue;		
+	}	
+	public void setSavingsValue(Double savingsValue) {
+		totalSavings = savingsValue;		
+	}	
+	public void setIncomeValue(Double incomeValue) {
+		totalIncome = incomeValue;		
 	}
 	
 	@FXML
@@ -155,6 +156,9 @@ public class BudgetAppController {
 				insightSceneController.setPrimaryStage(primaryStage);
 				insightSceneController.setMyScene(new Scene(root));
 				insightSceneController.setNextController(this);
+				insightSceneController.setNetIncomeLabels(totalIncome, totalExpenses);
+				insightSceneController.setBudgetDifference(totalSavings, totalExpenses);
+				
 			}
 			catch(IOException e) {
 				e.printStackTrace();

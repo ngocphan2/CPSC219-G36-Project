@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
@@ -18,6 +19,9 @@ public class SavingsController {
 	
 	private double monthlySavings;
 	private ArrayList<TextField> savingsTextFields = new ArrayList<TextField>();
+	private ChoiceBox<String> activityChoiceBox = new ChoiceBox<String>();
+	private ArrayList<Double> activityList = new ArrayList<Double>();
+
 
 	@FXML
 	private Label errorLabel;
@@ -44,6 +48,10 @@ public class SavingsController {
 		primaryStage.setScene(myScene);
 	}
 	
+	public void getArrayTextField(ArrayList<TextField> arrayTextField) {
+		savingsTextFields = arrayTextField;		
+	}
+	
 	public void goToController(ActionEvent event) {
 		getAccumulation(savingsTextFields);
 		
@@ -51,6 +59,7 @@ public class SavingsController {
 			if (validChecker.equals("valid")) {
 				nextController.takeFocus();
 				nextController.setMonthlySavingsLabels("Monthly Savings is: $" + monthlySavings);
+				nextController.setSavingsValue(monthlySavings);
 			}
 	}
 	
@@ -62,15 +71,16 @@ public class SavingsController {
 		monthlySavings = 0.0;
 		try {
 			for(TextField savingsTextField : savingsTextFields) {
-				Accumulation savingsBudget = new Accumulation(savingsTextField.getText());
-				monthlySavings += savingsBudget.getValue();
+				Accumulation savingsAccumulaion = new Accumulation(savingsTextField.getText());
+				monthlySavings += savingsAccumulaion.getValue();
+				savingsAccumulaion.addChoiceBox(activityChoiceBox, savingsAccumulaion, activityList);
 				validChecker = "valid";
 			}			
 		}
 		catch (InvalidBudgetException ibe) {
 			errorLabel.setText(ibe.getMessage());
-			Accumulation savingsBudget = new Accumulation(0);
-			monthlySavings += savingsBudget.getValue();
+			Accumulation savingsAccumulaion = new Accumulation(0);
+			monthlySavings += savingsAccumulaion.getValue();
 			validChecker = "invalid";
 		}
 	}

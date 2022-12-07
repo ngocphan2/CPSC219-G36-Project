@@ -54,7 +54,7 @@
          <children>
             <BorderPane prefHeight="200.0" prefWidth="200.0">
                <top>
-	           		 <Label fx:id="monthlySavingsLabel" text="Budget saving plan is: $0" textFill="Green" BorderPane.alignment="CENTER" />
+	           		 <Label fx:id="monthlySavingsLabel" text="Total saving plan is: $0" textFill="Green" BorderPane.alignment="CENTER" />
                </top>
                <bottom>
                   <Label fx:id="errorSavingsLabel" text="Please set monthly Savings" textFill="Red" BorderPane.alignment="CENTER" />
