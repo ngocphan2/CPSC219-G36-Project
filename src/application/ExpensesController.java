@@ -67,11 +67,23 @@ public class ExpensesController {
 	}
 	
 	public void addTextField(ActionEvent event) {
+		errorLabel.setText("");
 		expensesVBox.getChildren().addAll(Accumulation.generateTextField(expensesTextFields));
 	}
 	
 	public void addCalendar(ActionEvent event) {
-		expensesVBox.getChildren().addAll(Accumulation.generateDate());
+		errorLabel.setText("");
+		expensesVBox.getChildren().addAll(Accumulation.generateDate(), Accumulation.generateTextField(expensesTextFields));
+	}
+	
+	public void removeTextField(ActionEvent event) {
+		errorLabel.setText("");
+		try {
+			Accumulation.removeTextField(expensesVBox, expensesVBox.getChildren().size() - 1, expensesTextFields);			
+		}
+		catch (IndexOutOfBoundsException e) {
+			errorLabel.setText("There is no item left to remove.");
+		}
 	}
 	
 	public void getAccumulation(ArrayList<TextField> expensesTextFields) {	

@@ -67,6 +67,16 @@ public class SavingsController {
 		savingsVBox.getChildren().addAll(Accumulation.generateTextField(savingsTextFields));
 	}
 	
+	public void removeItem(ActionEvent event) {
+		errorLabel.setText("");
+		try {
+			Accumulation.removeTextField(savingsVBox, savingsVBox.getChildren().size() - 1, savingsTextFields);
+		}
+		catch (IndexOutOfBoundsException e) {
+			errorLabel.setText("There is no item left to remove.");
+		}
+	}
+	
 	public void getAccumulation(ArrayList<TextField> savingsTextFields) {	
 		monthlySavings = 0.0;
 		try {

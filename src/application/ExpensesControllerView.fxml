@@ -33,7 +33,7 @@
             <Insets left="10.0" />
          </padding>
       </Label>
-      <BorderPane prefHeight="50.0" prefWidth="200.0">
+      <BorderPane prefHeight="80.0" prefWidth="200.0">
          <left>
             <Button mnemonicParsing="false" onAction="#addTextField" text="Add More Activities" BorderPane.alignment="CENTER">
                <BorderPane.margin>
@@ -54,6 +54,13 @@
          <padding>
             <Insets bottom="10.0" />
          </padding>
+         <bottom>
+            <Button mnemonicParsing="false" onAction="#removeTextField" text="Remove Activity" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets right="160.0" />
+               </BorderPane.margin>
+            </Button>
+         </bottom>
       </BorderPane>
       <ScrollPane fitToHeight="true" pannable="true" prefHeight="700.0" prefWidth="200.0">
          <content>

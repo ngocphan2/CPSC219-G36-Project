@@ -7,6 +7,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 
 public class Accumulation extends Budget{
 	private double rent;
@@ -51,6 +52,19 @@ public class Accumulation extends Budget{
 		return aBorderPane;
 	}
 	
+	public static BorderPane generateDate() {
+		DatePicker addDate = new DatePicker();
+		BorderPane newDate = new BorderPane();
+		addDate.getEditor().setDisable(true);
+		newDate.setLeft(addDate);
+		return newDate;
+	}
+	
+	public static void removeTextField(VBox container, int pos, ArrayList<TextField> TextFields) {
+		TextFields.remove(pos);
+		container.getChildren().remove(pos);
+	}
+
 	public void addChoiceBox(ChoiceBox<String> activityChoiceBox, Accumulation myAccumulation,
 			ArrayList<Double> activityList) {		
 		if (activityChoiceBox.getValue() == "Rent/Mortgage") {
@@ -88,13 +102,5 @@ public class Accumulation extends Budget{
 		activityList.add(utility);
 		activityList.add(phonePlan);
 		activityList.add(other);
-	}
-		
-	public static BorderPane generateDate() {
-		DatePicker addDate = new DatePicker();
-		BorderPane newDate = new BorderPane();
-		addDate.getEditor().setDisable(true);
-		newDate.setLeft(addDate);
-		return newDate;
 	}
 }
