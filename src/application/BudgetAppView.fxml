@@ -99,11 +99,17 @@
                   <Label text="Expenses" BorderPane.alignment="CENTER">
                      <padding>
                         <Insets left="50.0" />
-                     </padding></Label>
+                     </padding>
+                     </Label>
                </center>
             </BorderPane>
          </children>
       </HBox>
+      <Label fx:id="valueCheckedLabel" text="" textFill="RED">
+      	<padding>
+      		<Insets left="10.0" />
+      	</padding>
+      </Label>
       <Button mnemonicParsing="false" onAction="#insightChecker" text="Insight">
       	<HBox.margin>
         	<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
