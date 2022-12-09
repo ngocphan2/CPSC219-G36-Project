@@ -10,6 +10,8 @@ import javafx.stage.Stage;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.StringJoiner;
 
 /**
  * BudgetAppController class connects with other Controller classes redirect
@@ -30,9 +32,9 @@ public class BudgetAppController {
 	private InsightController insightSceneController;
 	
 	//Create instance variables of type double
-	private double totalExpenses;
-	private double totalSavings;
 	private double totalIncome;
+	private double totalSavings;
+	private double totalExpenses;
 	
 	//Import variable names from FXML file
 	@FXML
@@ -52,6 +54,9 @@ public class BudgetAppController {
 
 	@FXML
 	private Label monthlyExpensesLabel;
+	
+	@FXML
+	private Label valueCheckedLabel;
 
 	/**
 	 * This method sets value of instance variable primaryStage
@@ -241,6 +246,35 @@ public class BudgetAppController {
 		expensesSceneController.takeFocus();
 	}
 	
+	/**
+	 * This method checks if user has entered the data required. If the data is missing, appropriate
+	 * error message will be display
+	 * 
+	 * @param income Parameter of type String
+	 * @param saving Parameter of type String
+	 * @param expenses Parameter of type String
+	 */
+	public void checkValue(String income, String saving, String expenses) {
+		ArrayList<Double> doubleArr = new ArrayList<Double>();
+		doubleArr.add(totalIncome);
+		doubleArr.add(totalSavings);
+		doubleArr.add(totalExpenses);
+		
+		ArrayList<String> strArr = new ArrayList<String>();
+		strArr.add(income);
+		strArr.add(saving);
+		strArr.add(expenses);
+		
+		StringJoiner sj = new StringJoiner(", ");
+		
+		for (int i = 0; i < doubleArr.size(); i++) {
+			if (doubleArr.get(i) == 0.0) {
+				sj.add(strArr.get(i));
+			}
+		}
+		valueCheckedLabel.setText("Please enter data for " + sj.toString());
+	}
+	
 	@FXML
 	/**
 	 * This method directs user to a new scene of class InsightController
@@ -248,23 +282,31 @@ public class BudgetAppController {
 	 * @param event Parameter of type ActionEvent
 	 */
 	public void insightChecker(ActionEvent event) {
-		if(insightSceneController == null) {
-			try {
-				FXMLLoader loader = new FXMLLoader();
-				Parent root = loader.load(new FileInputStream("src/application/InsightControllerView.fxml"));
-				
-				insightSceneController = loader.getController();
-				insightSceneController.setPrimaryStage(primaryStage);
-				insightSceneController.setMyScene(new Scene(root));
-				//Set values totalIncome and totalExpenses to appropriate fields in the method
-				insightSceneController.setNetIncomeLabels(totalIncome, totalExpenses);
-				//Set value totalSavings and totalExpenses to appropriate fields in the method
-				insightSceneController.setBudgetDifference(totalSavings, totalExpenses);				
-			}
-			catch(IOException e) {
-				e.printStackTrace();
-			}
+		if (totalIncome == 0.0 && totalSavings == 0.0 && totalExpenses == 0.0) {
+			valueCheckedLabel.setText("Please enter data first");
+		} 
+		else if (totalIncome == 0.0 || totalSavings == 0.0 || totalExpenses == 0.0) {
+			checkValue("income", "spending budget", "expenses");
 		}
-		insightSceneController.takeFocus();
+		else {
+			if(insightSceneController == null) {
+				try {
+					FXMLLoader loader = new FXMLLoader();
+					Parent root = loader.load(new FileInputStream("src/application/InsightControllerView.fxml"));
+					
+					insightSceneController = loader.getController();
+					insightSceneController.setPrimaryStage(primaryStage);
+					insightSceneController.setMyScene(new Scene(root));
+					//Set values totalIncome and totalExpenses to appropriate fields in the method
+					insightSceneController.setNetIncomeLabels(totalIncome, totalExpenses);
+					//Set value totalSavings and totalExpenses to appropriate fields in the method
+					insightSceneController.setBudgetDifference(totalSavings, totalExpenses);				
+				}
+				catch(IOException e) {
+					e.printStackTrace();
+				}
+			}
+			insightSceneController.takeFocus();
+		}		
 	}
 }
