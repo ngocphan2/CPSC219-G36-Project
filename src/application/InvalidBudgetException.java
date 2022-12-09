@@ -6,6 +6,7 @@ package application;
  * @author Henry Pham & Naomi Phan
  *
  */
+@SuppressWarnings("serial")
 public class InvalidBudgetException extends Exception {
 
 	/**
