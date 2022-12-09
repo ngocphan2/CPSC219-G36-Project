@@ -76,7 +76,7 @@ public class InsightController {
 	}
 	
 	/**
-	 * This method closes the current scene and go back to the main Controller
+	 * This method closes the program
 	 * 
 	 * @param event Parameter of type ActionEvent
 	 */
@@ -166,7 +166,7 @@ public class InsightController {
 					+ String.format("%.2f", emergencyFund) + ". Then, you can invest your savings "
 							+ "to earn compounded interest.");
 		}
-		else {
+		else if (value < 0){
 			savingsPercentageInsightLabel.setText("You have overspent this month. You should reduce expenses");
 			savingsPercentageRecommendation.setText("");
 			savingsPercentage.setText("");

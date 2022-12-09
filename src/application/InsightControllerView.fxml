@@ -54,11 +54,17 @@
          <padding>
             <Insets left="10.0" />
          </padding>
+         <font>
+            <Font size="16.0" />
+         </font>
       </Label>
       <Label fx:id="budgetInsightLabel" text="Label" textFill="Red">
          <padding>
             <Insets left="10.0" />
          </padding>
+         <font>
+            <Font size="16.0" />
+         </font>
       </Label>
       <Label text="" />
       <Label text="II. Recommendation">
@@ -75,12 +81,19 @@
          </padding>
       </Label>
       <Label text="" />
-      <Label fx:id="savingsPercentageInsightLabel" text="Label">
+      <Label fx:id="savingsPercentageInsightLabel" text="PLEASE ENTER DATA FIRST">
          <padding>
             <Insets left="10.0" />
          </padding>
+         <font>
+            <Font size="16.0" />
+         </font>
       </Label>
       
-      <Button mnemonicParsing="false" onAction="#exitApp" text="Redo" />
+      <Button mnemonicParsing="false" onAction="#exitApp" text="Close" >
+      	<VBox.margin> 
+      		<Insets left="10.0" />
+      	</VBox.margin>
+      </Button>
    </children>
 </VBox>

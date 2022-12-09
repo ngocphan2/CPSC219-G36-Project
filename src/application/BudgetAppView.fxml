@@ -34,7 +34,7 @@
          <children>
             <BorderPane prefHeight="200.0" prefWidth="200.0">
                <top>
-	           		 <Label fx:id="monthlyIncomeLabel" text="Total income: $0" textFill="Green" BorderPane.alignment="CENTER" />
+	           		 <Label fx:id="monthlyIncomeLabel" text="" textFill="Green" BorderPane.alignment="CENTER" />
                </top>
                <center>
                   <Label text="Monthly Income" BorderPane.alignment="CENTER">
@@ -63,7 +63,7 @@
          <children>
             <BorderPane prefHeight="200.0" prefWidth="200.0">
                <top>
-	           		 <Label fx:id="monthlySavingsLabel" text="Total Spending Budget: $0" textFill="Green" BorderPane.alignment="CENTER" />
+	           		 <Label fx:id="monthlySavingsLabel" text="" textFill="Green" BorderPane.alignment="CENTER" />
                </top>
                <bottom>
                   <Label fx:id="errorSavingsLabel" text="Please set Spending Budget" textFill="Red" BorderPane.alignment="CENTER" />
@@ -87,7 +87,7 @@
          <children>
             <BorderPane prefHeight="200.0" prefWidth="200.0">
             	<top>
-	           		<Label fx:id="monthlyExpensesLabel" text="Total Expenses: $0" textFill="Green" BorderPane.alignment="CENTER" />
+	           		<Label fx:id="monthlyExpensesLabel" text="" textFill="Green" BorderPane.alignment="CENTER" />
                </top>
                <bottom>
                   <Label fx:id="errorExpensesLabel" text="Please provide Expenses" textFill="Red" BorderPane.alignment="CENTER" />
@@ -108,6 +108,9 @@
       	<HBox.margin>
         	<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
        </HBox.margin>
+       <VBox.margin>
+       		<Insets left="79.0" />
+       </VBox.margin>
 	  </Button>
    </children>
 </VBox>

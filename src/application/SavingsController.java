@@ -107,6 +107,7 @@ public class SavingsController {
 	 * @param event Parameter of type ActionEvent
 	 */
 	public void addTextField(ActionEvent event) {
+		errorLabel.setText("");
 		savingsVBox.getChildren().addAll(Accumulation.generateTextField(savingsTextFields));
 	}
 	
