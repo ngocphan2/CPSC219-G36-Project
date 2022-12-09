@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="225.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SavingsController">
+<VBox prefHeight="225.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SavingsController">
    <children>
       <BorderPane prefHeight="25.0" prefWidth="100.0">
          <VBox.margin>
@@ -16,10 +21,13 @@
             <Button mnemonicParsing="false" onAction="#goToController" text="Done" BorderPane.alignment="CENTER" />
          </right>
          <center>
-            <Label text="Monthly Savings" BorderPane.alignment="CENTER">
+            <Label text="Spending Budget" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets left="60.0" />
                </BorderPane.margin>
+               <font>
+                  <Font size="21.0" />
+               </font>
             </Label>
          </center>
       </BorderPane>

@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -7,13 +12,17 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.BudgetAppController">
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.BudgetAppController">
    <children>
       <HBox prefHeight="30.0" prefWidth="200.0">
          <children>
             <BorderPane prefHeight="200.0" prefWidth="200.0">
                <center>
-                  <Label text="Budget Application" BorderPane.alignment="TOP_CENTER" />
+                  <Label text="Budget Application" BorderPane.alignment="TOP_CENTER">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                     </Label>
                </center>
                <padding>
                   <Insets bottom="10.0" />
@@ -25,7 +34,7 @@
          <children>
             <BorderPane prefHeight="200.0" prefWidth="200.0">
                <top>
-	           		 <Label fx:id="monthlyIncomeLabel" text="Total income is: $0" textFill="Green" BorderPane.alignment="CENTER" />
+	           		 <Label fx:id="monthlyIncomeLabel" text="Total income: $0" textFill="Green" BorderPane.alignment="CENTER" />
                </top>
                <center>
                   <Label text="Monthly Income" BorderPane.alignment="CENTER">
@@ -42,7 +51,7 @@
                   </Button>
                </right>
                <bottom>
-                  <Label fx:id="errorIncomeLabel" text="Please enter total income" textFill="Red" BorderPane.alignment="CENTER" />
+                  <Label fx:id="errorIncomeLabel" text="Please enter Total Income" textFill="Red" BorderPane.alignment="CENTER" />
                </bottom>
                <padding>
                   <Insets bottom="15.0" />
@@ -54,16 +63,16 @@
          <children>
             <BorderPane prefHeight="200.0" prefWidth="200.0">
                <top>
-	           		 <Label fx:id="monthlySavingsLabel" text="Total saving plan is: $0" textFill="Green" BorderPane.alignment="CENTER" />
+	           		 <Label fx:id="monthlySavingsLabel" text="Total Spending Budget: $0" textFill="Green" BorderPane.alignment="CENTER" />
                </top>
                <bottom>
-                  <Label fx:id="errorSavingsLabel" text="Please set monthly Savings" textFill="Red" BorderPane.alignment="CENTER" />
+                  <Label fx:id="errorSavingsLabel" text="Please set Spending Budget" textFill="Red" BorderPane.alignment="CENTER" />
                </bottom>
                <right>
                   <Button mnemonicParsing="false" onAction="#getSavings" text="Enter" BorderPane.alignment="CENTER" />
                </right>
                <center>
-                  <Label text="Monthly Savings" BorderPane.alignment="CENTER">
+                  <Label text="Spending Budget" BorderPane.alignment="CENTER">
                      <BorderPane.margin>
                         <Insets left="50.0" />
                      </BorderPane.margin></Label>
@@ -78,16 +87,16 @@
          <children>
             <BorderPane prefHeight="200.0" prefWidth="200.0">
             	<top>
-	           		<Label fx:id="monthlyExpensesLabel" text="Total expenses is: $0" textFill="Green" BorderPane.alignment="CENTER" />
+	           		<Label fx:id="monthlyExpensesLabel" text="Total Expenses: $0" textFill="Green" BorderPane.alignment="CENTER" />
                </top>
                <bottom>
-                  <Label fx:id="errorExpensesLabel" text="Please provide expenses" textFill="Red" BorderPane.alignment="CENTER" />
+                  <Label fx:id="errorExpensesLabel" text="Please provide Expenses" textFill="Red" BorderPane.alignment="CENTER" />
                </bottom>
                <right>
                   <Button mnemonicParsing="false" onAction="#getExpenses" text="Enter" BorderPane.alignment="CENTER" />
                </right>
                <center>
-                  <Label text="Monthly Expenses" BorderPane.alignment="CENTER">
+                  <Label text="Expenses" BorderPane.alignment="CENTER">
                      <padding>
                         <Insets left="50.0" />
                      </padding></Label>

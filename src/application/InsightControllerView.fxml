@@ -1,54 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.InsightController">
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.InsightController">
    <children>
-      <Label text="Financial Insight">
+      <Label text="Financial Insight" BorderPane.alignment="CENTER">
+      	<padding>
+            <Insets left="10.0" />
+         </padding>
          <font>
             <Font size="21.0" />
          </font>
       </Label>
-      <Label fx:id="overViewTitleLabel" text="Overview">
+      <Label text="I. Overview">
          <padding>
             <Insets left="10.0" />
          </padding>
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
       </Label>
       <Label fx:id="netIncomeLabel" text="">
-         <padding>
-            <Insets left="10.0" />
-         </padding>
-      </Label>
-      <Label fx:id="netIncomeInsightLabel" textFill="Red" text="Label">
-         <padding>
-            <Insets left="10.0" />
-         </padding>
-      </Label>
-      <Label fx:id="savingsRecommendation" text="Professional financial advisors recommend that the ideal savings percentage is 20%">
-         <padding>
-            <Insets left="10.0" />
-         </padding>
-      </Label>
-      <Label fx:id="savingsPercentage" text="Label">
-         <padding>
-            <Insets left="10.0" />
-         </padding>
-      </Label>
-      <Label fx:id="savingsPercentageInsightLabel" text="Label">
-         <padding>
-            <Insets left="10.0" />
-         </padding>
-      </Label>
-      <Label text="Emergency Fund should be enough to cover your expenses in 6 months without working">
-         <padding>
-            <Insets left="10.0" />
-         </padding>
-      </Label>
-      <Label fx:id="emergencyFund" text="">
          <padding>
             <Insets left="10.0" />
          </padding>
@@ -58,16 +39,48 @@
             <Insets left="10.0" />
          </padding>
       </Label>
-      <Label fx:id="budgetInsightLabel" textFill="Red" text="Label">
+      <Label fx:id="savingsPercentage" text="Label">
          <padding>
             <Insets left="10.0" />
          </padding>
       </Label>
-      <Label text="Advanced Analysis">
+      <Label fx:id="emergencyFund" text="">
          <padding>
             <Insets left="10.0" />
          </padding>
       </Label>
-      <Button mnemonicParsing="false" onAction="#goToController" text="Redo" />
+      <Label text="" />
+      <Label fx:id="netIncomeInsightLabel" text="Label" textFill="Red">
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+      </Label>
+      <Label fx:id="budgetInsightLabel" text="Label" textFill="Red">
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+      </Label>
+      <Label text="" />
+      <Label text="II. Recommendation">
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+      </Label>
+      <Label fx:id="savingsPercentageRecommendation" text="">
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+      </Label>
+      <Label text="" />
+      <Label fx:id="savingsPercentageInsightLabel" text="Label">
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+      </Label>
+      
+      <Button mnemonicParsing="false" onAction="#exitApp" text="Redo" />
    </children>
 </VBox>
