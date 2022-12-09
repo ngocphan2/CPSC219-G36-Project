@@ -1,36 +1,47 @@
 package application;
 
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * BudgetAppController class connects with other Controller classes redirect
+ * to other scenes through every button.
+ * 
+ * @author Henry Pham & Naomi Phan
+ *
+ */
 public class BudgetAppController {
-	public Stage applicationStage;
-	private TextField expensesTextField;
-	private double monthlyIncome = 0.0;
-	private double monthlyBudget = 0.0;
-	private double monthlyExpenses = 0.0;
-
-
-
+	//Create instance variables pertaining to the GUI
+	private Stage primaryStage;
+	private Scene myScene;
+	
+	//Create instance variables of other Controllers' instances
+	private IncomeController incomeSceneController;
+	private SavingsController savingSceneController;
+	private ExpensesController expensesSceneController;
+	private InsightController insightSceneController;
+	
+	//Create instance variables of type double
+	private double totalExpenses;
+	private double totalSavings;
+	private double totalIncome;
+	
+	//Import variable names from FXML file
 	@FXML
 	private Label errorIncomeLabel;
 	
 	@FXML
-	private Label errorBudgetLabel;
+	private Label errorSavingsLabel;
 	
 	@FXML
 	private Label errorExpensesLabel;
@@ -39,245 +50,223 @@ public class BudgetAppController {
 	private Label monthlyIncomeLabel;
 	
 	@FXML
-	private Label monthlyBudgetLabel;
+	private Label monthlySavingsLabel;
 
 	@FXML
-	private Label monthlyExpensesLabel;	
+	private Label monthlyExpensesLabel;
+
+	/**
+	 * This method sets value of instance variable primaryStage
+	 * 
+	 * @param aStage Parameter of type Stage
+	 */
+	public void setPrimaryStage(Stage aStage) {
+		primaryStage = aStage;
+	}	
 	
-	public void calculateIncome(Scene mainScene, ArrayList<TextField> incomeTextFields) {
-		monthlyIncome = 0.0;
-		errorIncomeLabel.setText("");
-		String validChecker = "valid";
-		
-		try {
-			for(TextField incomeTextField : incomeTextFields) {
-				Budget incomeBudget = new Budget(incomeTextField.getText());
-				monthlyIncome += incomeBudget.getValue();
-			}			
-		}
-		catch (InvalidBudgetException ibe) {
-			errorIncomeLabel.setText(ibe.getMessage()); 
-			Budget incomeBudget = new Budget(0);
-			monthlyIncome += incomeBudget.getValue();
-			validChecker = "invalid";
-		}
-		
-		monthlyIncomeLabel.setText("Total income is: $" + monthlyIncome);
-		
-		if (validChecker.equals("valid"))	applicationStage.setScene(mainScene);		
+	/**
+	 * This method sets value of instance variable myScene
+	 * 
+	 * @param aScene Parameter of type Scene
+	 */
+	public void setMyScene(Scene aScene) {
+		myScene = aScene;
 	}
 	
-	@FXML
-	void getIncome(ActionEvent event) {
-		Scene mainScene = applicationStage.getScene();
-		
-		ArrayList<String> incomeListLabels = new ArrayList<String>();
-		VBox incomeContainer = new VBox();
-		
-		incomeListLabels.add("Employment Income");
-		incomeListLabels.add("Side Income");
-		incomeListLabels.add("Other Income");
-		
-		Label incomeTitleLabel = new Label("Monthly Income");
-		ArrayList<TextField> incomeTextFields = new ArrayList<TextField>();
-		incomeContainer.getChildren().addAll(incomeTitleLabel, errorIncomeLabel);
-		
-		for (int i = 0; i < incomeListLabels.size(); i++) {
-			HBox rowContainer = new HBox();
-			Label incomeLabel = new Label(incomeListLabels.get(i));
-			TextField incomeTextField = new TextField();
-			incomeTextFields.add(incomeTextField);
-			
-			rowContainer.getChildren().addAll(incomeLabel, incomeTextField);			
-			incomeContainer.getChildren().addAll(rowContainer);
-		}
-		
-		Button doneButton = new Button("Done");
-    	doneButton.setOnAction(doneEvent -> calculateIncome(mainScene, incomeTextFields));
-    	incomeContainer.getChildren().addAll(doneButton);
-		
-		Scene incomeScene = new Scene(incomeContainer);
-		applicationStage.setScene(incomeScene);
+	/**
+	 * This method set the scene of the user interface when called
+	 */
+	public void takeFocus() {
+		primaryStage.setScene(myScene);
 	}
 	
-	public void calculateBudget(Scene mainScene, ArrayList<TextField> budgetTextFields) {
-		monthlyBudget = 0.0;
-		errorBudgetLabel.setText("");
-		String validChecker = "valid";
-		
-		try {
-			for(TextField budgetTextField : budgetTextFields) {
-				Budget budgetBudget = new Budget(budgetTextField.getText());
-				monthlyBudget += budgetBudget.getValue();
-			}			
-		}
-		catch (InvalidBudgetException ibe) {
-			errorBudgetLabel.setText(ibe.getMessage()); 
-			Budget budgetBudget = new Budget(0);
-			monthlyBudget += budgetBudget.getValue();
-			validChecker = "invalid";
-		}
-		
-		monthlyBudgetLabel.setText("Total budget is: $" + monthlyBudget);
-		
-		if (validChecker.equals("valid"))	applicationStage.setScene(mainScene);		
+	/**
+	 * This method sets the value of monthlyIncomeLabel to incomeStr
+	 * 
+	 * @param incomeStr Parameter of typer String
+	 */
+	public void setMonthlyIncomeLabels(String incomeStr) {
+		monthlyIncomeLabel.setText(incomeStr);
 	}
 	
-	@FXML
-	void getBudget(ActionEvent event) {
-		Scene mainScene = applicationStage.getScene();
-		VBox budgetContainer = new VBox();
-
-		ArrayList<TextField> budgetTextFields = new ArrayList<TextField>();
-		BorderPane expensesBorderPane = new BorderPane();
-		Label budgetTitleLabel = new Label("Monthly Budget");
-		Button doneButton = new Button("Done");
-    	doneButton.setOnAction(doneEvent -> calculateBudget(mainScene, budgetTextFields));
-
-    	expensesBorderPane.setCenter(budgetTitleLabel);
-    	expensesBorderPane.setRight(doneButton);
-    	budgetContainer.getChildren().addAll(expensesBorderPane, errorBudgetLabel);				
-
-    	Button addBudgetButton = new Button("Add more");
-		addBudgetButton.setOnAction(doneEvent -> {budgetContainer.getChildren().addAll(generateTextField());
-		budgetTextFields.add(expensesTextField);});
-		budgetContainer.getChildren().add(addBudgetButton);
-
-		Scene budgetScene = new Scene(budgetContainer);
-		applicationStage.setScene(budgetScene);
+	/**
+	 * This method sets the value of monthlySavingsLabel to savingsStr
+	 * 
+	 * @param SavingsStr Parameter of typer String
+	 */
+	public void setMonthlySavingsLabels(String savingsStr) {
+		monthlySavingsLabel.setText(savingsStr);
 	}
 	
-	BorderPane generateDate() {
-		DatePicker addDate = new DatePicker();
-		BorderPane newDate = new BorderPane();
-		addDate.getEditor().setDisable(true);
-		newDate.setLeft(addDate);
-		return newDate;
-	}
-
-	BorderPane generateTextField() {
-		ChoiceBox<String> activityChoiceBox = new ChoiceBox<String>();
-    	activityChoiceBox.setValue("Select Activity");
-    	ObservableList<String> activityList = activityChoiceBox.getItems();
-    	activityList.add("Rent/Mortgage");
-    	activityList.add("Car Payment");
-    	activityList.add("Car Insurance");
-    	activityList.add("Health Insurance");
-    	activityList.add("Other Insurance");
-    	activityList.add("Food");
-    	activityList.add("Utility");
-    	activityList.add("Phone Bill");
-    	activityList.add("Miscenllaneous");
-    	activityList.add("Shopping");
-    	activityList.add("Household Necessities");
-    	activityList.add("Other");
-		expensesTextField = new TextField();
-		BorderPane expensesBorderPane = new BorderPane();
-
-		expensesBorderPane.setLeft(activityChoiceBox);
-		expensesBorderPane.setRight(expensesTextField);
-		
-		return expensesBorderPane;
+	/**
+	 * This method sets the value of monthlyExpensesLabel to expensesStr
+	 * 
+	 * @param expensesStr Parameter of type String
+	 */
+	public void setMonthlyExpensesLabels(String expensesStr) {
+		monthlyExpensesLabel.setText(expensesStr);
 	}
 	
+	/**
+	 * This method sets the value of errorIncomeLabel to str
+	 * 
+	 * @param str Parameter of type String
+	 */
+	public void setErrorIncomeLabels(String str) {
+		errorIncomeLabel.setText(str);
+	}
 	
+	/**
+	 * This method sets the value of errorSavingsLabel to str
+	 * 
+	 * @param str Parameter of type String
+	 */
+	public void setErrorSavingsLabels(String str) {
+		errorSavingsLabel.setText(str);
+	}
 	
-	public void calculateExpenses(Scene mainScene, ArrayList<TextField> expensesTextFields) {
-		monthlyExpenses = 0.0;
-		errorExpensesLabel.setText("");
-		String validChecker = "valid";
-		
-		try {
-			for(TextField expensesTextField : expensesTextFields) {
-				Budget expensesBudget = new Budget(expensesTextField.getText());
-				monthlyExpenses += expensesBudget.getValue();
-			}			
-		}
-		catch (InvalidBudgetException ibe) {
-			errorExpensesLabel.setText(ibe.getMessage()); 
-			Budget expensesBudget = new Budget(0);
-			monthlyExpenses += expensesBudget.getValue();
-			validChecker = "invalid";
-		}
-		
-		monthlyExpensesLabel.setText("Total expenses is: $" + monthlyExpenses);
-		
-		if (validChecker.equals("valid"))	applicationStage.setScene(mainScene);
+	/**
+	 * This method sets the value of errorExpensesLabel to str
+	 * 
+	 * @param str Parameter of type String
+	 */
+	public void setErrorExpensesLabels(String str) {
+		errorExpensesLabel.setText(str);
+	}
+	
+	/**
+	 * This method sets the value of totalIncome to incomeValue
+	 * 
+	 * @param incomeValue Parameter of type double
+	 */
+	public void setIncomeValue(double incomeValue) {
+		totalIncome = incomeValue;		
+	}
+	
+	/**
+	 * This method sets the value of totalSavings to savingsaValue
+	 * 
+	 * @param savingsValue Parameter of type double
+	 */
+	public void setSavingsValue(double savingsValue) {
+		totalSavings = savingsValue;		
+	}	
+	
+	/**
+	 * This method sets the value of totalExpenses to expensesValue
+	 * 
+	 * @param expensesValue Parameter of type double
+	 */
+	public void setExpensesValue(double expensesValue) {
+		totalExpenses = expensesValue;		
 	}
 	
 	@FXML
-	void getExpenses(ActionEvent expensesEvent) {
-		Scene mainScene = applicationStage.getScene();
-		
-		ScrollPane sp = new ScrollPane();
-		VBox expensesContainer = new VBox();
-		VBox tfContainer = new VBox();
-		
-		ArrayList<TextField> expensesTextFields = new ArrayList<TextField>();
-		BorderPane expensesBorderPane1 = new BorderPane();
-		BorderPane expensesBorderPane2 = new BorderPane();
-		Label expensesTitleLabel = new Label("Monthly Expenses");
-		Button doneButton = new Button("Done");
-    	doneButton.setOnAction(doneEvent -> calculateExpenses(mainScene, expensesTextFields));
-		DatePicker myDate = new DatePicker();
-		myDate.getEditor().setDisable(true);
-		
-		sp.setContent(tfContainer);
-		sp.setPannable(true);
-		Button addExpenseButton = new Button("Add More Activities");
-		addExpenseButton.setOnAction(doneEvent -> {tfContainer.getChildren().add(generateTextField());
-		expensesTextFields.add(expensesTextField);});
-		
-		
-		Button addDateButton = new Button ("Select Another Date");
-		addDateButton.setOnAction(doneEvent -> tfContainer.getChildren().add(generateDate()));
-		
-		expensesBorderPane1.setCenter(expensesTitleLabel);
-		expensesBorderPane1.setRight(doneButton);
-		expensesBorderPane2.setLeft(addExpenseButton);
-		expensesBorderPane2.setCenter(addDateButton );
-		expensesContainer.getChildren().addAll(expensesBorderPane1, expensesBorderPane2, 
-				errorExpensesLabel, myDate, sp);
-				    	
-		Scene expensesScene = new Scene(expensesContainer);
-		applicationStage.setScene(expensesScene);
-	}
-	
-	public void checkInsight(Scene mainScene) {
-		
-		
-		applicationStage.setScene(mainScene);
+	/**
+	 * This method directs user to a new scene of class IncomeController 
+	 * 
+	 * @param event Parameter of type ActionEvent
+	 */
+	public void getIncome(ActionEvent event) {
+		if(incomeSceneController == null) {
+			try {
+				FXMLLoader loader = new FXMLLoader();
+				//Set FXML file to loader
+				Parent root = loader.load(new FileInputStream("src/application/IncomeControllerView.fxml"));
+				
+				//Set variable incomeSceneController value to the Controller belong to the FXML file
+				incomeSceneController = loader.getController();
+				//Set stage for Controller
+				incomeSceneController.setPrimaryStage(primaryStage);
+				//Set scene for Controller
+				incomeSceneController.setMyScene(new Scene(root));
+				//Set this stage to be the next Controller
+				incomeSceneController.setNextController(this);
+				//Set error label to empty
+				incomeSceneController.setErrorLabel("");
+			}
+			catch(IOException e) {
+				e.printStackTrace();
+			}
+		}
+		//Set current user interface to IncomeController's user interface
+		incomeSceneController.takeFocus();
 	}
 	
 	@FXML
-	void insightChecker(ActionEvent event) {
-		Scene mainScene = applicationStage.getScene();
-		double Income = monthlyIncome - monthlyExpenses;
-
-		VBox insightContainer = new VBox();
-		
-		Label insightTitleLabel = new Label("Overview");
-		Label insightIncomeLabel = new Label("Total income: $" + Income
-				+ "\n(Revenue - Expenses)");
-		Label insightBudgetLabel = new Label("Target budget: $" + monthlyBudget);
-		
-		
-		Label insightIncomeResultLabel = new Label();
-		if (Income > 0 ) insightIncomeResultLabel.setText("Saving is at a surplus of: $" + Income);
-		else if (Income < 0 ) insightIncomeResultLabel.setText("Saving is at a deficit of: $" + Income);
-		else if (Income == 0 ) insightIncomeResultLabel.setText("Saving is at $0");
-		
-		Label insightSavingResultLabel = new Label();
-		if (monthlyBudget >= monthlyExpenses ) insightSavingResultLabel.setText("Budget target met");
-		else if (monthlyBudget < monthlyExpenses ) insightSavingResultLabel.setText("Failed to meet Budget target");
-		
-		insightContainer.getChildren().addAll(insightTitleLabel, insightIncomeLabel, insightBudgetLabel, insightIncomeResultLabel, insightSavingResultLabel);
-		
-		Button doneButton = new Button("Redo");
-    	doneButton.setOnAction(doneEvent -> checkInsight(mainScene));
-    	insightContainer.getChildren().add(doneButton);
-		
-		Scene insightScene = new Scene(insightContainer);
-		applicationStage.setScene(insightScene);
+	/**
+	 * This method directs user to a new scene of class SavingsController
+	 * 
+	 * @param event Parameter of type ActionEvent
+	 */
+	public void getSavings(ActionEvent event) {
+		if(savingSceneController == null) {
+			try {
+				FXMLLoader loader = new FXMLLoader();
+				Parent root = loader.load(new FileInputStream("src/application/SavingsControllerView.fxml"));
+				
+				savingSceneController = loader.getController();
+				savingSceneController.setPrimaryStage(primaryStage);
+				savingSceneController.setMyScene(new Scene(root));
+				savingSceneController.setNextController(this);
+				savingSceneController.setErrorLabel("Please have at least 1 entry");
+			}
+			catch(IOException e) {
+				e.printStackTrace();
+			}
+		}
+		savingSceneController.takeFocus();
+	}
+	
+	@FXML
+	/**
+	 * This method directs user to a new scene of class ExpensesController
+	 * 
+	 * @param event Parameter of type ActionEvent
+	 */
+	public void getExpenses(ActionEvent event) {
+		if(expensesSceneController == null) {
+			try {
+				FXMLLoader loader = new FXMLLoader();
+				Parent root = loader.load(new FileInputStream("src/application/ExpensesControllerView.fxml"));
+				
+				expensesSceneController = loader.getController();
+				expensesSceneController.setPrimaryStage(primaryStage);
+				expensesSceneController.setMyScene(new Scene(root));
+				expensesSceneController.setNextController(this);
+				expensesSceneController.setErrorLabel("Please have at least 1 entry");
+			}
+			catch(IOException e) {
+				e.printStackTrace();
+			}
+		}
+		expensesSceneController.takeFocus();
+	}
+	
+	@FXML
+	/**
+	 * This method directs user to a new scene of class InsightController
+	 * 
+	 * @param event Parameter of type ActionEvent
+	 */
+	public void insightChecker(ActionEvent event) {
+		if(insightSceneController == null) {
+			try {
+				FXMLLoader loader = new FXMLLoader();
+				Parent root = loader.load(new FileInputStream("src/application/InsightControllerView.fxml"));
+				
+				insightSceneController = loader.getController();
+				insightSceneController.setPrimaryStage(primaryStage);
+				insightSceneController.setMyScene(new Scene(root));
+				//Set values totalIncome and totalExpenses to appropriate fields in the method
+				insightSceneController.setNetIncomeLabels(totalIncome, totalExpenses);
+				//Set value totalSavings and totalExpenses to appropriate fields in the method
+				insightSceneController.setBudgetDifference(totalSavings, totalExpenses);				
+			}
+			catch(IOException e) {
+				e.printStackTrace();
+			}
+		}
+		insightSceneController.takeFocus();
 	}
 }
