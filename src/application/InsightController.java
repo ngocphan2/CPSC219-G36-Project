@@ -96,14 +96,26 @@ public class InsightController {
 	public void setNetIncomeLabels(double income, double expenses) {
 		this.income = income;
 		this.expenses = expenses;
+		
+		//Calculate net income, savings percentage, and recommended emergency fund
 		netIncome = this.income - this.expenses;
-		netIncomeLabel.setText("Net Income: $" + netIncome);
-		generateInsight(netIncome, netIncomeInsightLabel, "Net Income");
 		double savingsPercent = netIncome/this.income * 100;
-		savingsPercentage.setText("Savings Percentage: " + String.format("%.2f", savingsPercent) +"%");
 		double emergencyFundValue = this.expenses * 6;
+		
+		//Set net income label to the net income value calculated
+		netIncomeLabel.setText("Net Income: $" + netIncome);
+		
+		//Generate insight about net income based on different scenarios
+		generateInsight(netIncome, netIncomeInsightLabel, "Net Income");
+		
+		//Display this month saving percentage
+		savingsPercentage.setText("Savings Percentage: " + String.format("%.2f", savingsPercent) +"%");
+		
+		//Display recommended emergency fund needed based on expenses
 		emergencyFund.setText("Recommended Emergency Fund Value: $" + String.format("%.2f", emergencyFundValue));
 		savingsPercentageInsight(savingsPercent, emergencyFundValue);
+		
+		//Display ideal savings percentage recommended by professionals
 		savingsPercentageRecommendation.setText("Professional financial advisors recommend that " 
 		+ "the ideal savings percentage is 20%" + "\n" + "Also, everyone should build an "
 		+ "emergency fund (ideally, 6 months of your expenses) to cover expenses" + "\n" 
@@ -123,6 +135,8 @@ public class InsightController {
 		this.savings = savings;
 		this.expenses = expenses;
 		budgetDifference = this.savings - this.expenses;
+		
+		//Show if the user's spending is aligned with budget
 		budgetTitleLabel.setText("Budget vs. Actual Spendings: $" + String.format("%.2f", budgetDifference));
 		generateInsight(budgetDifference, budgetInsightLabel, "Budget");
 	}
