@@ -248,7 +248,7 @@ public class BudgetAppController {
 	
 	/**
 	 * This method checks if user has entered the data required. If the data is missing, appropriate
-	 * error message will be display
+	 * error message will be displayed.
 	 * 
 	 * @param income Parameter of type String
 	 * @param saving Parameter of type String
@@ -272,6 +272,8 @@ public class BudgetAppController {
 				sj.add(strArr.get(i));
 			}
 		}
+		
+		//Set the appropriate error message if the user misses any field
 		valueCheckedLabel.setText("Please enter data for " + sj.toString());
 	}
 	
@@ -283,9 +285,12 @@ public class BudgetAppController {
 	 */
 	public void insightChecker(ActionEvent event) {
 		if (totalIncome == 0.0 && totalSavings == 0.0 && totalExpenses == 0.0) {
+			
+			//Set error message for "insight" button in case the user does not put in data
 			valueCheckedLabel.setText("Please enter data first");
 		} 
 		else if (totalIncome == 0.0 || totalSavings == 0.0 || totalExpenses == 0.0) {
+			//Check if the user misses any required data field, then set appropriate error message
 			checkValue("income", "spending budget", "expenses");
 		}
 		else {
@@ -300,7 +305,9 @@ public class BudgetAppController {
 					//Set values totalIncome and totalExpenses to appropriate fields in the method
 					insightSceneController.setNetIncomeLabels(totalIncome, totalExpenses);
 					//Set value totalSavings and totalExpenses to appropriate fields in the method
-					insightSceneController.setBudgetDifference(totalSavings, totalExpenses);				
+					insightSceneController.setBudgetDifference(totalSavings, totalExpenses);
+					//Set insight error message label to empty string
+					valueCheckedLabel.setText("");
 				}
 				catch(IOException e) {
 					e.printStackTrace();
